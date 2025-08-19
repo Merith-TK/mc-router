@@ -108,8 +108,9 @@ func ReadLegacyServerListPing(reader *bufio.Reader, addr net.Addr) (*Packet, err
 	if err != nil {
 		return nil, err
 	}
-	if messageName != "MC|PingHost" {
-		return nil, errors.Errorf("expected messageName=MC|PingHost, got %s", messageName)
+
+	if messageName != "MC|PingHost" && messageName != "BTAPingHost" {
+		return nil, errors.Errorf("expected messageName=MC|PingHost or BTAPingHost, got %s", messageName)
 	}
 
 	remainingLen, err := ReadUnsignedShort(reader)
